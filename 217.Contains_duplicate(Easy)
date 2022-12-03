@@ -1,0 +1,27 @@
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+#c++ program
+
+Approach #1:
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int n = nums.size();
+        unordered_map<int, int> count;
+
+        for (int i : nums)
+            if (++count[i] > 1)
+                return true;
+
+        return false;
+    }
+};
+
+Approach #2:
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set s(nums.begin(), nums.end()); //Unordered set does not contain duplicate values.
+        return !(s.size() == nums.size());
+    }
+};

@@ -1,0 +1,39 @@
+You are given a 0-indexed integer array nums of length n.
+
+The average difference of the index i is the absolute difference between the average of the first i + 1 elements of nums and the average of the last n - i - 1 elements. Both averages should be rounded down to the nearest integer.
+
+Return the index with the minimum average difference. If there are multiple such indices, return the smallest one.
+
+
+
+C++ Solution 
+
+class Solution {
+public:
+    int minimumAverageDifference(vector<int>& nums) {
+        int n = nums.size();
+        long long prefixSum = 0;
+        int minDiffIdx = -1, minDiff = INT_MAX;
+        long long totalSum = 0;
+
+        for (int i = 0; i < n; i++) 
+            totalSum += nums[i];
+
+        for (int i = 0; i < n; i++) {
+            prefixSum += nums[i];
+
+            long long leftAvg = prefixSum / (i + 1);
+            long long rightAvg = (totalSum - prefixSum);
+            if (i != n - 1) rightAvg /= (n - i - 1);
+
+            int currDiff = (int(abs(leftAvg - rightAvg)));
+
+            if (minDiff > currDiff) {
+                minDiff = currDiff;
+                minDiffIdx = i;
+            }
+
+        }
+        return minDiffIdx;
+    }
+};
